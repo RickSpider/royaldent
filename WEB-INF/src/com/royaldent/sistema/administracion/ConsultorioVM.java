@@ -50,10 +50,6 @@ public class ConsultorioVM extends TemplateViewModelLocal {
 
 	private void cargarConsultorios() {
 
-		// this.lConsultorios =
-		// this.reg.getAllObjectsByCondicionOrder(Consultorio.class.getName(), null,
-		// "Consultorioid asc");
-
 		String sql = this.um.getSql("consultorios.sql");
 
 		this.lConsultorios = this.reg.sqlNativo(sql);
