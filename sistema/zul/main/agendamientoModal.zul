@@ -1,0 +1,375 @@
+<?page title="patologiaModal" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Agendamiento Crear/Ver/Editar" border="normal"
+		position="center,center" closable="true" mode="modal"
+		action="show: slideDown;hide: slideUp">
+
+		<vlayout>
+
+			
+			<tablelayout columns="2">
+			
+				<tablechildren style="padding-left: 10px">
+					<label value="Paciente:" />
+				</tablechildren>
+				<tablechildren style="padding-left: 10px">
+					<hbox pack="end" hflex="1">
+
+						<bandbox id="bdPaciente"
+							value="@load(vm.buscarPaciente)" mold="rounded" autodrop="true"
+							width="250px" onOpen="@command('generarListaBuscarPaciente')"
+							readonly="true">
+							<bandpopup>
+
+								<vbox>
+
+									<hbox>
+
+										<label value="Buscar:" />
+
+										<textbox instant="true"
+											value="@bind(vm.buscarPaciente)"
+											onChange="@command('filtrarPacienteBuscar')" />
+
+									</hbox>
+
+									<listbox id="lbPaciente" height="250px"
+										emptyMessage="lista vacía..." width="450px" mold="paging"
+										autopaging="true" onSelect="bdPaciente.close()"
+										model="@load(vm.lPacientesBuscar)">
+
+										<listhead>
+											<listheader label="ID"
+												hflex="min" />
+											<listheader label="Nombre" />
+											<listheader
+												label="Apellido" />
+											<listheader
+												label="Documento Num" />
+										</listhead>
+
+										<template name="model">
+
+											<listitem
+												value="@load(each[1])"
+												onClick="@command('onSelectPaciente', id = each[0])">
+
+												<listcell
+													label="@load(each[0])" />
+
+												<listcell
+													label="@load(each[1])" />
+
+												<listcell
+													label="@load(each[2])" />
+												<listcell
+													label="@load(each[3])" />
+
+											</listitem>
+
+										</template>
+										<listitem />
+									</listbox>
+
+								</vbox>
+							</bandpopup>
+						</bandbox>
+
+					</hbox>
+				</tablechildren>
+				
+				<tablechildren style="padding-left: 10px">
+					<label value="Odontologo:" />
+				</tablechildren>
+				<tablechildren style="padding-left: 10px">
+					<hbox pack="end" hflex="1">
+
+						<bandbox id="bdEmpleado"
+							value="@load(vm.buscarEmpleado)" mold="rounded" autodrop="true"
+							width="250px" onOpen="@command('generarListaBuscarEmpleado')"
+							readonly="true">
+							<bandpopup>
+
+								<vbox>
+
+									<hbox>
+
+										<label value="Buscar:" />
+
+										<textbox instant="true"
+											value="@bind(vm.buscarEmpleado)"
+											onChange="@command('filtrarEmpleadoBuscar')" />
+
+									</hbox>
+
+									<listbox id="lbEmpleado" height="250px"
+										emptyMessage="lista vacía..." width="450px" mold="paging"
+										autopaging="true" onSelect="bdEmpleado.close()"
+										model="@load(vm.lEmpleadosBuscar)">
+
+										<listhead>
+											<listheader label="ID"
+												hflex="min" />
+											<listheader label="Nombre" />
+											<listheader
+												label="Apellido" />
+											<listheader
+												label="Documento Num" />
+										</listhead>
+
+										<template name="model">
+
+											<listitem
+												value="@load(each[1])"
+												onClick="@command('onSelectEmpleado', id = each[0])">
+
+												<listcell
+													label="@load(each[0])" />
+
+												<listcell
+													label="@load(each[1])" />
+
+												<listcell
+													label="@load(each[2])" />
+												<listcell
+													label="@load(each[3])" />
+
+											</listitem>
+
+										</template>
+										<listitem />
+									</listbox>
+
+								</vbox>
+							</bandpopup>
+						</bandbox>
+
+					</hbox>
+				</tablechildren>
+				
+				<tablechildren style="padding-left: 10px">
+					<label value="Consultorio:" />
+				</tablechildren>
+				
+				<tablechildren style="padding-left: 10px">
+					<hbox pack="end" hflex="1">
+
+						<bandbox id="bdConsultorio"
+							value="@load(vm.buscarConsultorio)" mold="rounded" autodrop="true"
+							width="250px" onOpen="@command('generarListaBuscarConsultorio')"
+							readonly="true">
+							<bandpopup>
+
+								<vbox>
+
+									<hbox>
+
+										<label value="Buscar:" />
+
+										<textbox instant="true"
+											value="@bind(vm.buscarConsultorio)"
+											onChange="@command('filtrarConsultorioBuscar')" />
+
+									</hbox>
+
+									<listbox id="lbConsultorio" height="250px"
+										emptyMessage="lista vacía..." width="450px" mold="paging"
+										autopaging="true" onSelect="bdConsultorio.close()"
+										model="@load(vm.lConsultoriosBuscar)">
+
+										<listhead>
+											<listheader label="ID"
+												hflex="min" />
+											<listheader label="Consultorio" />
+										</listhead>
+
+										<template name="model">
+
+											<listitem
+												value="@load(each[1])"
+												onClick="@command('onSelectConsultorio', id = each[0])">
+
+												<listcell
+													label="@load(each[0])" />
+
+												<listcell
+													label="@load(each[1])" />
+
+											</listitem>
+
+										</template>
+										<listitem />
+									</listbox>
+
+								</vbox>
+							</bandpopup>
+						</bandbox>
+
+					</hbox>
+				</tablechildren>
+				
+				<tablechildren style="padding-left: 10px">
+					<label value="Motivo Consulta:" />
+				</tablechildren>
+				<tablechildren style="padding-left: 10px">
+				
+					<bandbox id="bdMotivo"
+						value="@load(vm.buscarMotivo) @save(vm.buscarMotivo, before='guardar')"
+						constraint="no empty: Es campo obligatorio." mold="rounded"
+						autodrop="true" width="150px"
+						onOpen="@command('generarListaBuscarMotivo')"
+						readonly="true">
+						<bandpopup>
+
+							<vbox>
+
+								<hbox>
+
+									<label value="Buscar:" />
+
+									<textbox instant="true"
+										value="@bind(vm.buscarMotivo)"
+										onChange="@command('filtrarMotivoBuscar')" />
+
+								</hbox>
+
+								<listbox height="250px" width="450px"
+									mold="paging" autopaging="true" onSelect="bdMotivo.close()"
+									model="@load(vm.lMotivosBuscar)">
+
+									<listhead>
+										<listheader label="ID"
+											hflex="min" />
+										<listheader label="Motivo" />
+										<listheader label="Descripcion" />
+									</listhead>
+
+									<template name="model">
+
+										<listitem
+											onClick="@command('onSelectMotivo', id = each[0])">
+
+											<listcell
+												label="@load(each[0])" />
+
+											<listcell
+												label="@load(each[1])" />
+
+											<listcell
+												label="@load(each[2])" />
+
+										</listitem>
+
+									</template>
+									<listitem />
+								</listbox>
+
+							</vbox>
+						</bandpopup>
+					</bandbox>
+				
+				</tablechildren>
+			
+				<tablechildren style="padding-left: 10px">
+					<label value="Fecha:" />
+				</tablechildren>
+				<tablechildren style="padding-left: 10px">
+					<datebox value="@load(vm.agendamientoSelected.fecha) @save(vm.agendamientoSelected.fecha, before='guardar')"
+						format="dd/MM/yyyy hh:mm" width="150px"
+						constraint="no empty: Es campo obligatorio." />	
+				</tablechildren>
+				
+				<tablechildren style="padding-left: 10px">
+					<label value="Duracion:" />
+				</tablechildren>
+				<tablechildren style="padding-left: 10px">
+					<intbox value="@load(vm.agendamientoSelected.duracion) @save(vm.agendamientoSelected.duracion, before='guardar')" constraint="no negative,no empty"/>
+					<space height="5px" />
+					<label value="minutos." />
+				</tablechildren>
+				
+				<tablechildren style="padding-left: 10px">
+					<label value="Observacion:" />
+				</tablechildren>
+				<tablechildren style="padding-left: 10px">
+					<textbox value ="@bind(vm.agendamientoSelected.observacion)" />
+				</tablechildren>
+				
+				<tablechildren style="padding-left: 10px">
+					<label value="Estado:" />
+				</tablechildren>
+				<tablechildren style="padding-left: 10px">
+				
+					<bandbox id="bdEstado"
+						value="@load(vm.buscarEstado) @save(vm.buscarEstado, before='guardar')"
+						constraint="no empty: Es campo obligatorio." mold="rounded"
+						autodrop="true" width="150px"
+						onOpen="@command('generarListaBuscarEstado')"
+						readonly="true">
+						<bandpopup>
+
+							<vbox>
+
+								<hbox>
+
+									<label value="Buscar:" />
+
+									<textbox instant="true"
+										value="@bind(vm.buscarEstado)"
+										onChange="@command('filtrarEstadoBuscar')" />
+
+								</hbox>
+
+								<listbox height="250px" width="450px"
+									mold="paging" autopaging="true" onSelect="bdEstado.close()"
+									model="@load(vm.lEstadosBuscar)">
+
+									<listhead>
+										<listheader label="ID"
+											hflex="min" />
+										<listheader label="Estado" />
+										<listheader label="Descripcion" />
+									</listhead>
+
+									<template name="model">
+
+										<listitem
+											onClick="@command('onSelectEstado', id = each[0])">
+
+											<listcell
+												label="@load(each[0])" />
+
+											<listcell
+												label="@load(each[1])" />
+
+											<listcell
+												label="@load(each[2])" />
+
+										</listitem>
+
+									</template>
+									<listitem />
+								</listbox>
+
+							</vbox>
+						</bandpopup>
+					</bandbox>
+				
+				</tablechildren>
+
+			</tablelayout>
+
+
+			<space height="10px" />
+
+			<hlayout>
+
+				<button label="Aceptar" onClick="@command('guardar')"/>
+
+			</hlayout>
+
+		</vlayout>
+
+
+	</window>
+</zk>

@@ -1,0 +1,36 @@
+<?page title="patologiaModal" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Consultorio Crear/Ver/Editar" border="normal"
+		position="center,center" closable="true" mode="modal"
+		action="show: slideDown;hide: slideUp">
+
+		<vlayout>
+
+			
+			<tablelayout columns="2">
+			
+				<tablechildren>
+					<label value="Consultorio:" />
+				</tablechildren>
+				
+				<tablechildren>
+					<textbox value="@load(vm.consultorioSelected.consultorio) @save(vm.consultorioSelected.consultorio, before='guardar')" 
+					readonly="@load(vm.editar)" 
+					constraint="no empty: Es campo obligatorio."/>
+				</tablechildren>
+				
+			</tablelayout>
+
+			<space height="10px" />
+
+			<hlayout>
+
+				<button label="Aceptar" onClick="@command('guardar')"/>
+
+			</hlayout>
+
+		</vlayout>
+
+
+	</window>
+</zk>

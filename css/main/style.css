@@ -1,0 +1,64 @@
+.horizontal, .vertical {
+    height: 100%;
+    background-color: #EAE7E7;
+}
+.z-navbar {
+    position: absolute;
+    background-color: white;
+}
+.z-navbar-horizontal li {
+    min-width: 145px;
+}   
+.z-navbar-vertical {
+    width: 160px;
+    height: 100%;
+}   
+.z-navbar-vertical.z-navbar-collapsed {
+    width: inherit;
+}   
+.z-navbar-horizontal.z-navbar-collapsed {
+    width: 580px;
+}
+.content {
+    padding: 18px 22px;
+}
+.vertical .content {
+    padding-left: 182px;
+}
+.vertical .content.collapsed {
+    padding-left: 75px;
+}
+.horizontal .content {
+    padding-top: 50px;
+}
+.content .title {
+    margin: 0;
+}
+.content .subTitle {
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+
+.topbar {
+    padding: 18px 22px; 
+    
+}
+.vertical .topbar {
+    padding-left: 182px;
+    background-color: white;
+}
+.vertical .topbar.collapsed {
+    padding-left: 75px;
+}
+.horizontal .topbar {
+    padding-top: 50px;
+    background-color: white;
+}
+

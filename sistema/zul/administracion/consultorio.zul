@@ -1,0 +1,99 @@
+<?page title="Consultorios" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Consultorio" border="normal"
+		viewModel="@id('vm') @init('com.royaldent.sistema.administracion.ConsultorioVM')"
+		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+
+		<hlayout vflex="1">
+			
+				<vlayout hflex="1" vflex="1">
+
+					<hbox pack="end" hflex="1" >
+
+						<button label="Agregar"
+							iconSclass=" z-icon-plus" onClick="@command('modalConsultorioAgregar')" disabled="@load(!vm.opCrearConsultorio)" />
+
+					</hbox>
+
+					<listbox emptyMessage="lista vacía..." mold="paging"
+						vflex="1" model="@load(vm.lConsultorios)" checkmark="true">
+
+						<listhead>
+
+							<listheader hflex="min" align="center" />
+							<listheader label="ID" align="right" hflex="min"
+								 />
+							<listheader label="Consultorio" align="left"
+								 />
+							<listheader align="center" 
+								width="100px"/>
+
+
+						</listhead>
+
+
+						<auxhead>
+
+							<auxheader />
+							<auxheader />
+
+							<auxheader>
+								<textbox
+									value="@bind(vm.filtroColumns[1])" instant="true"
+									onChange="@command('filtrarConsultorio')" hflex="1" />
+							</auxheader>
+
+							<auxheader />
+						</auxhead>
+
+						<template name="model">
+
+							<listitem>
+								<listcell />
+								<listcell label="@load(each[0])" />
+								<listcell label="@load(each[1])" />
+
+								<listcell>
+									<hlayout>
+
+										<button iconSclass="z-icon-edit"
+											onClick="@command('modalConsultorio', consultorioid=each[0])"
+											tooltiptext="Editar" disabled="@load(!vm.opEditarConsultorio)"/>
+										<button
+											iconSclass="z-icon-trash-o" style="background-color:red"
+											onClick="@command('borrarConsultorioConfirmacion', consultorioid=each[0])"
+											tooltiptext="Borrar" disabled="@load(!vm.opBorrarConsultorio)"/>
+
+
+									</hlayout>
+
+
+								</listcell>
+
+
+							</listitem>
+
+
+						</template>
+
+						<listfoot>
+							<listfooter span="4" align="left">
+								<hlayout>
+									<label
+										value="@load(vm.lConsultorios.size())" />
+									<label value="items" />
+								</hlayout>
+							</listfooter>
+						</listfoot>
+
+
+					</listbox>
+
+				</vlayout>
+
+		
+			
+		</hlayout>
+
+	</window>
+</zk>

@@ -1,0 +1,5 @@
+<mapping class="com.royaldent.modelo.Patologia" />
+<mapping class="com.royaldent.modelo.Consultorio" />
+<mapping class="com.royaldent.modelo.Paciente" />
+<mapping class="com.royaldent.modelo.Empleado" />
+<mapping class="com.royaldent.modelo.Agendamiento" />
