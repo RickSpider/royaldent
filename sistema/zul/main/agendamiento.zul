@@ -2,9 +2,10 @@
 <zk>
 	<window title="Agendamientos" border="normal"
 		viewModel="@id('vm') @init('com.royaldent.sistema.main.AgendamientoVM')"
+		binder="@init(queueName='agendamientosGlobal',queueScope='application')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
 		
-		
+		<label id="xxx" value="@load(vm.algo)" />
 
 		<div apply="com.royaldent.sistema.main.calendar.CalendarController"
 			  vflex="1">
@@ -29,6 +30,8 @@
 			<calendars id="calendars" firstDayOfWeek="Sunday"
 				 timeZone="Main=GMT-4" mold="default" model="@load(vm.calendarModel)"
 				 beginTime="5" endTime="20" timeslots="4"/>
+		
 		</div>
+			
 	</window>
 </zk>

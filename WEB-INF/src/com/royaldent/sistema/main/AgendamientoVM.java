@@ -4,17 +4,20 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.calendar.event.CalendarsEvent;
 import org.zkoss.calendar.impl.SimpleCalendarModel;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zul.Window;
@@ -36,6 +39,7 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 	@Init(superclass = true)
 	public void initConsultorioVM() {
 		cargarAgendamientos();
+		
 	}
 
 	@AfterCompose(superclass = true)
@@ -51,9 +55,12 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 
 	}
 
-	@NotifyChange("calendarModel")
-	private void cargarAgendamientos() {
+	
 
+	@NotifyChange("calendarModel")
+	public boolean cargarAgendamientos() {
+
+		
 		/*
 		 * SimpleDateFormat dataSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		 * 
@@ -77,7 +84,7 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 
 		List<Agendamiento> lAgendamientos = this.reg.getAllObjects(Agendamiento.class.getName());
 
-		calendarModel = new SimpleCalendarModel();
+		this.calendarModel = new SimpleCalendarModel();
 		
 		for (Agendamiento x : lAgendamientos) {
 			AgendamientoCalendarItem sce = new AgendamientoCalendarItem();
@@ -109,8 +116,15 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 			}
 
 			sce.setContent(x.getPaciente().getFullNombre());
-			calendarModel.add(sce);
+			this.calendarModel.add(sce);
 		}
+		
+		BindUtils.postNotifyChange(null, null, this, "calendarModel");
+		
+		return true;
+		
+		//this.calendarModel = calendarModelAux;
+	
 	}
 
 	private Window modal;
@@ -151,15 +165,29 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 
 	}
 
+	private String algo;
+
 	@Command
-	@NotifyChange("calendarModel")
 	public void guardar() {
 
 		this.save(this.agendamientoSelected);
-
+		
+		//this.cargarAgendamientos();
+		
+		BindUtils.postGlobalCommand("agendamientosGlobal", EventQueues.APPLICATION, "update", null);
 		this.modal.detach();
-		this.cargarAgendamientos();
-
+	}
+	
+	@GlobalCommand
+	@NotifyChange({"calendarModel","algo"})
+	public void update() {
+		
+		if (this.cargarAgendamientos()) {
+			
+			this.algo = this.getCurrentUser().getAccount();
+		}
+		
+		
 	}
 
 	// Seccion buscarPaciente
@@ -436,6 +464,14 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 
 	public void setBuscarConsultorio(String buscarConsultorio) {
 		this.buscarConsultorio = buscarConsultorio;
+	}
+
+	public String getAlgo() {
+		return algo;
+	}
+
+	public void setAlgo(String algo) {
+		this.algo = algo;
 	}
 
 }
