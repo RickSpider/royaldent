@@ -166,8 +166,6 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 
 	}
 
-	private String algo;
-
 	@Command
 	public void guardar() {
 
@@ -183,14 +181,10 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 	}
 	
 	@GlobalCommand
-	@NotifyChange({"calendarModel","algo"})
+	@NotifyChange({"calendarModel"})
 	public void update() {
 		
-		if (this.cargarAgendamientos()) {
-			
-			this.algo = this.getCurrentUser().getAccount();
-		}
-		
+		this.cargarAgendamientos();
 		
 	}
 
@@ -468,14 +462,6 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 
 	public void setBuscarConsultorio(String buscarConsultorio) {
 		this.buscarConsultorio = buscarConsultorio;
-	}
-
-	public String getAlgo() {
-		return algo;
-	}
-
-	public void setAlgo(String algo) {
-		this.algo = algo;
 	}
 
 }
