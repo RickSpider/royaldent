@@ -4,8 +4,6 @@
 		viewModel="@id('vm') @init('com.royaldent.sistema.main.AgendamientoVM')"
 		binder="@init(queueName='agendamientosGlobal',queueScope='application')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
-		
-		<label id="xxx" value="@load(vm.algo)" />
 
 		<div apply="com.royaldent.sistema.main.calendar.CalendarController"
 			  vflex="1">
