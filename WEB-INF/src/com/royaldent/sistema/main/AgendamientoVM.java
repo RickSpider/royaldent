@@ -2,6 +2,7 @@ package com.royaldent.sistema.main;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.zkoss.bind.BindUtils;
@@ -172,10 +173,13 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 
 		this.save(this.agendamientoSelected);
 		
-		//this.cargarAgendamientos();
-		
-		BindUtils.postGlobalCommand("agendamientosGlobal", EventQueues.APPLICATION, "update", null);
 		this.modal.detach();
+		
+		CompletableFuture.runAsync( () -> {
+			
+			BindUtils.postGlobalCommand("agendamientosGlobal", EventQueues.APPLICATION, "update", null);
+			
+		});
 	}
 	
 	@GlobalCommand
