@@ -6,32 +6,33 @@
 
 		<vlayout>
 
-			
 			<tablelayout columns="4">
-			
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Nombre:" />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
-					<textbox value="@load(vm.pacienteSelected.nombre) @save(vm.pacienteSelected.nombre, before='guardar')"
-					constraint="no empty: Es campo obligatorio."/>
+
+				<tablechildren style="padding-left: 10px">
+					<textbox
+						value="@load(vm.pacienteSelected.nombre) @save(vm.pacienteSelected.nombre, before='guardar')"
+						constraint="no empty: Es campo obligatorio." />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Apellido:" />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
-					<textbox value="@load(vm.pacienteSelected.apellido) @save(vm.pacienteSelected.apellido, before='guardar')" 
-					constraint="no empty: Es campo obligatorio."/>
+
+				<tablechildren style="padding-left: 10px">
+					<textbox
+						value="@load(vm.pacienteSelected.apellido) @save(vm.pacienteSelected.apellido, before='guardar')"
+						constraint="no empty: Es campo obligatorio." />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Documento Tipo:" />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<bandbox id="bdDocumento"
 						value="@load(vm.buscarDocumento) @save(vm.buscarDocumento, before='guardar')"
 						constraint="no empty: Es campo obligatorio." mold="rounded"
@@ -87,28 +88,28 @@
 						</bandpopup>
 					</bandbox>
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Documento #:" />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
-					<textbox value="@load(vm.pacienteSelected.documentoNum) @save(vm.pacienteSelected.documentoNum, before='guardar')" 
-					readonly = "@load(vm.editar)"
-					constraint="no empty: Es campo obligatorio."/>
+
+				<tablechildren style="padding-left: 10px">
+					<textbox
+						value="@load(vm.pacienteSelected.documentoNum) @save(vm.pacienteSelected.documentoNum, before='guardar')"
+						readonly="@load(vm.editar)"
+						constraint="no empty: Es campo obligatorio." />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Sexo:" />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<bandbox id="bdSexo"
 						value="@load(vm.buscarSexo) @save(vm.buscarSexo, before='guardar')"
 						constraint="no empty: Es campo obligatorio." mold="rounded"
 						autodrop="true" width="150px"
-						onOpen="@command('generarListaBuscarSexo')"
-						readonly="true">
+						onOpen="@command('generarListaBuscarSexo')" readonly="true">
 						<bandpopup>
 
 							<vbox>
@@ -159,52 +160,54 @@
 						</bandpopup>
 					</bandbox>
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Fecha Nacimiento:" />
 				</tablechildren>
-				
+
 				<tablechildren style="padding-left: 10px">
 					<datebox
 						value="@load(vm.pacienteSelected.fechaNacimiento) @save(vm.pacienteSelected.fechaNacimiento, before='guardar')"
 						format="dd/MM/yyyy" width="150px"
-						constraint="no empty: Es campo obligatorio." />								
+						constraint="no empty: Es campo obligatorio." />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Tel/Cel:" />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
-					<textbox value="@load(vm.pacienteSelected.telefono) @save(vm.pacienteSelected.telefono, before='guardar')" 
-					constraint="no empty: Es campo obligatorio."/>
+
+				<tablechildren style="padding-left: 10px">
+					<textbox
+						value="@load(vm.pacienteSelected.telefono) @save(vm.pacienteSelected.telefono, before='guardar')"
+						constraint="no empty: Es campo obligatorio." />
 				</tablechildren>
-				
-				
-				<tablechildren  style="padding-left: 10px">
+
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Email:" />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
-					<textbox value="@load(vm.pacienteSelected.email) @save(vm.pacienteSelected.email, before='guardar')" 
-					constraint="no empty: Es campo obligatorio."/>
+
+				<tablechildren style="padding-left: 10px">
+					<textbox
+						value="@load(vm.pacienteSelected.email) @save(vm.pacienteSelected.email, before='guardar')"
+						constraint="no empty: Es campo obligatorio." />
 				</tablechildren>
-				
+
 				<tablechildren style="padding-left: 10px">
 					<label value="Direccion:" />
 				</tablechildren>
-				
-				<tablechildren  colspan="3"  style="padding-left: 10px">
-					<textbox value="@load(vm.pacienteSelected.direccion) @save(vm.pacienteSelected.direccion, before='guardar')" 
-						hflex="1"
-						constraint="no empty: Es campo obligatorio."/>
+
+				<tablechildren colspan="3" style="padding-left: 10px">
+					<textbox
+						value="@load(vm.pacienteSelected.direccion) @save(vm.pacienteSelected.direccion, before='guardar')"
+						hflex="1" constraint="no empty: Es campo obligatorio." />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<label value="Ciudad:" />
 				</tablechildren>
-				
-				<tablechildren  style="padding-left: 10px">
+
+				<tablechildren style="padding-left: 10px">
 					<bandbox id="bdCiudad"
 						value="@load(vm.buscarCiudad) @save(vm.buscarCiudad, before='guardar')"
 						constraint="no empty: Es campo obligatorio." mold="rounded"
@@ -266,16 +269,19 @@
 						</bandpopup>
 					</bandbox>
 				</tablechildren>
-				
-				
-			
+
+
+
 			</tablelayout>
+			
+		
+
 
 			<space height="10px" />
 
 			<hlayout>
 
-				<button label="Aceptar" onClick="@command('guardar')"/>
+				<button label="Aceptar" onClick="@command('guardar')" />
 
 			</hlayout>
 

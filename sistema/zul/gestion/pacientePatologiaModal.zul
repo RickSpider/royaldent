@@ -1,0 +1,61 @@
+<?page title="patologiaModal" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Patologia" border="normal"
+		position="center,center" closable="true" mode="modal"
+		action="show: slideDown;hide: slideUp">
+
+		<vlayout>
+
+			<hlayout>
+
+				<textbox />
+				<button iconSclass=" z-icon-plus" onClick="" />
+
+			</hlayout>
+
+			<listbox emptyMessage="lista vacía..." mold="paging"
+				height="150px" hflex="min"
+				model="@load(vm.pacienteSelected.patologias)" checkmark="true">
+
+				<listhead>
+
+					<listheader label="Patologias" width="200px"
+						align="center" />
+					<listheader />
+
+				</listhead>
+
+				<template name="model">
+
+					<listitem>
+
+						<listcell label="@load(each.patologia)" />
+						<listcell>
+
+							<button iconSclass="z-icon-trash-o"
+								style="background-color:red"
+								onClick="@command('borrarPatologia', patologia=each)"
+								tooltiptext="Borrar" />
+
+						</listcell>
+
+					</listitem>
+
+				</template>
+
+			</listbox>
+
+			<space height="10px" />
+
+			<hlayout>
+
+				<button label="Aceptar"
+					onClick="@command('guardarPatologias')" />
+
+			</hlayout>
+
+		</vlayout>
+
+
+	</window>
+</zk>

@@ -28,7 +28,7 @@
 							<listheader label="Apellido" align="left"
 								 />
 							<listheader align="center" 
-								width="100px"/>
+								hflex="min"/>
 
 
 						</listhead>
@@ -64,6 +64,10 @@
 
 								<listcell>
 									<hlayout>
+									
+										<button iconSclass="z-icon-list" style="background-color:orange"
+											onClick="@command('modalPacientePatologia', pacienteid=each[0])"
+											tooltiptext="patologia" disabled="@load(!vm.opEditarPaciente)"/>
 
 										<button iconSclass="z-icon-edit"
 											onClick="@command('modalPaciente', pacienteid=each[0])"

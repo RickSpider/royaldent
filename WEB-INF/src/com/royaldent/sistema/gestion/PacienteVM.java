@@ -18,6 +18,7 @@ import com.doxacore.modelo.Ciudad;
 import com.doxacore.modelo.Tipo;
 import com.doxacore.modelo.Usuario;
 import com.royaldent.modelo.Paciente;
+import com.royaldent.modelo.Patologia;
 
 public class PacienteVM extends TemplateViewModelLocal {
 
@@ -137,10 +138,26 @@ public class PacienteVM extends TemplateViewModelLocal {
 		modal.doModal();
 
 	}
+	
+	@Command
+	public void modalPacientePatologia(@BindingParam("pacienteid") long pacienteid) {
+
+		modal = (Window) Executions.createComponents("/sistema/zul/gestion/pacientePatologiaModal.zul", this.mainComponent,
+				null);
+		Selectors.wireComponents(modal, this, false);
+		modal.doModal();
+
+	}
 
 	private boolean verificarCampos() {
 
 		return true;
+	}
+	
+	public void borrarPatologia(@BindingParam("patologia") Patologia patologia) {
+		
+		this.pacienteSelected.getPatologias().remove(patologia);
+		
 	}
 
 	@Command
