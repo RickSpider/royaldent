@@ -59,7 +59,7 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 	
 
 	@NotifyChange("calendarModel")
-	public boolean cargarAgendamientos() {
+	public void cargarAgendamientos() {
 
 		
 		/*
@@ -120,9 +120,7 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 			this.calendarModel.add(sce);
 		}
 		
-		BindUtils.postNotifyChange(null, null, this, "calendarModel");
-		
-		return true;
+	//	BindUtils.postNotifyChange(null, null, this, "calendarModel");
 		
 		//this.calendarModel = calendarModelAux;
 	
@@ -174,6 +172,13 @@ public class AgendamientoVM extends TemplateViewModelLocal {
 		this.modal.detach();
 		
 		CompletableFuture.runAsync( () -> {
+			
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			BindUtils.postGlobalCommand("agendamientosGlobal", EventQueues.APPLICATION, "update", null);
 			

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -59,7 +60,9 @@ public class Paciente extends Modelo implements Serializable{
 	private Ciudad ciudad;
 	
 	@ManyToMany
-	@JoinColumn(name = "patologiaid")
+	@JoinTable(name = "pacientesPatologias",
+			joinColumns = { @JoinColumn(name = "pacienteid") }, 
+	        inverseJoinColumns = { @JoinColumn(name = "patologiaid") })
 	private List<Patologia> patologias;
 	
 	public static long getSerialversionuid() {

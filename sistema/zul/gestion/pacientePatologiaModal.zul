@@ -7,9 +7,68 @@
 		<vlayout>
 
 			<hlayout>
+			
+				<label value="Patologia: " />
+			
+				<bandbox id="bdPatologia"
+						value="@load(vm.buscarPatologia) @save(vm.buscarPatologia)"
+						mold="rounded"
+						autodrop="true" width="150px"
+						onOpen="@command('generarListaBuscarPatologia')" readonly="true">
+						<bandpopup>
 
-				<textbox />
-				<button iconSclass=" z-icon-plus" onClick="" />
+							<vbox>
+
+								<hbox>
+
+									<label value="Buscar:" />
+
+									<textbox instant="true"
+										value="@bind(vm.buscarPatologia)"
+										onChange="@command('filtrarPatologiaBuscar')" />
+
+								</hbox>
+
+								<listbox height="250px" width="450px"
+									mold="paging" autopaging="true" onSelect="bdPatologia.close()"
+									model="@load(vm.lPatologiasBuscar)">
+
+									<listhead>
+										<listheader label="ID"
+											hflex="min" />
+										<listheader label="Patologia" />
+										<listheader
+											label="Descripcion" />
+									</listhead>
+
+									<template name="model">
+
+										<listitem
+											onClick="@command('onSelectPatologia', id = each[0])">
+
+											<listcell
+												label="@load(each[0])" />
+
+											<listcell
+												label="@load(each[1])" />
+
+											<listcell
+												label="@load(each[2])" />
+
+
+										</listitem>
+
+									</template>
+									<listitem />
+								</listbox>
+
+							</vbox>
+						</bandpopup>
+					</bandbox>
+
+				
+				<button iconSclass=" z-icon-plus" onClick="@command('agregarPatologia')" 
+				tooltiptext="Agregar a Lista."/>
 
 			</hlayout>
 
@@ -18,7 +77,8 @@
 				model="@load(vm.pacienteSelected.patologias)" checkmark="true">
 
 				<listhead>
-
+				
+					<listheader label="ID" hflex="min" />
 					<listheader label="Patologias" width="200px"
 						align="center" />
 					<listheader />
@@ -28,7 +88,8 @@
 				<template name="model">
 
 					<listitem>
-
+					
+						<listcell label="@load(each.patologiaid)" />
 						<listcell label="@load(each.patologia)" />
 						<listcell>
 
@@ -50,7 +111,7 @@
 			<hlayout>
 
 				<button label="Aceptar"
-					onClick="@command('guardarPatologias')" />
+					onClick="@command('guardar')" />
 
 			</hlayout>
 

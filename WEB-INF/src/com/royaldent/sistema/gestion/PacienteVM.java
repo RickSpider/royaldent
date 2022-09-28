@@ -115,20 +115,20 @@ public class PacienteVM extends TemplateViewModelLocal {
 				return;
 
 			this.pacienteSelected = this.reg.getObjectById(Paciente.class.getName(), pacienteid);
-			
-			this.buscarDocumento=this.pacienteSelected.getDocumentoTipo().getTipo();
-			this.buscarSexo=this.pacienteSelected.getSexo().getTipo();
-			this.buscarCiudad=this.pacienteSelected.getCiudad().getCiudad();
-			
+
+			this.buscarDocumento = this.pacienteSelected.getDocumentoTipo().getTipo();
+			this.buscarSexo = this.pacienteSelected.getSexo().getTipo();
+			this.buscarCiudad = this.pacienteSelected.getCiudad().getCiudad();
+
 			this.editar = true;
 
 		} else {
 
 			pacienteSelected = new Paciente();
-			
-			this.buscarDocumento="";
-			this.buscarSexo="";
-			this.buscarCiudad="";
+
+			this.buscarDocumento = "";
+			this.buscarSexo = "";
+			this.buscarCiudad = "";
 
 		}
 
@@ -138,12 +138,16 @@ public class PacienteVM extends TemplateViewModelLocal {
 		modal.doModal();
 
 	}
-	
+
 	@Command
 	public void modalPacientePatologia(@BindingParam("pacienteid") long pacienteid) {
+		
+		this.pacienteSelected = this.reg.getObjectById(Paciente.class.getName(), pacienteid);
+		this.buscarPatologia="";
+		this.buscarSelectedPatologia = null;
 
-		modal = (Window) Executions.createComponents("/sistema/zul/gestion/pacientePatologiaModal.zul", this.mainComponent,
-				null);
+		modal = (Window) Executions.createComponents("/sistema/zul/gestion/pacientePatologiaModal.zul",
+				this.mainComponent, null);
 		Selectors.wireComponents(modal, this, false);
 		modal.doModal();
 
@@ -153,11 +157,13 @@ public class PacienteVM extends TemplateViewModelLocal {
 
 		return true;
 	}
-	
+
+	@Command
+	@NotifyChange("pacienteSelected")
 	public void borrarPatologia(@BindingParam("patologia") Patologia patologia) {
-		
+
 		this.pacienteSelected.getPatologias().remove(patologia);
-		
+
 	}
 
 	@Command
@@ -206,7 +212,8 @@ public class PacienteVM extends TemplateViewModelLocal {
 	@NotifyChange("lDocumentosBuscar")
 	public void generarListaBuscarDocumento() {
 
-		String buscarDocumentoSQL = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1", ParamsLocal.SIGLA_DOCUMENTO);
+		String buscarDocumentoSQL = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1",
+				ParamsLocal.SIGLA_DOCUMENTO);
 
 		// System.out.println(buscarDocumentoSQL);
 
@@ -246,7 +253,8 @@ public class PacienteVM extends TemplateViewModelLocal {
 	@NotifyChange("lSexosBuscar")
 	public void generarListaBuscarSexo() {
 
-		String buscarSexoSQL = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1", ParamsLocal.SIGLA_SEXO);
+		String buscarSexoSQL = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1",
+				ParamsLocal.SIGLA_SEXO);
 
 		this.lSexosBuscar = this.reg.sqlNativo(buscarSexoSQL);
 
@@ -300,6 +308,57 @@ public class PacienteVM extends TemplateViewModelLocal {
 	}
 
 	// fin buscar ciudad
+
+	// buscador de Patologia
+
+	private List<Object[]> lPatologiasBuscarOri = null;
+	private List<Object[]> lPatologiasBuscar = null;
+	private Patologia buscarSelectedPatologia = null;
+	private String buscarPatologia = "";
+
+	@Command
+	@NotifyChange("lPatologiasBuscar")
+	public void filtrarPatologiaBuscar() {
+
+		this.lPatologiasBuscar = this.filtrarListaObject(buscarPatologia, this.lPatologiasBuscarOri);
+
+	}
+
+	@Command
+	@NotifyChange("lPatologiasBuscar")
+	public void generarListaBuscarPatologia() {
+
+		this.lPatologiasBuscar = this.reg.sqlNativo(this.um.getSql("buscarPatologias.sql"));
+
+		this.lPatologiasBuscarOri = this.lPatologiasBuscar;
+	}
+
+	@Command
+	@NotifyChange({"buscarPatologia"})
+	public void onSelectPatologia(@BindingParam("id") long id) {
+
+		this.buscarSelectedPatologia = this.reg.getObjectById(Patologia.class.getName(), id);
+		this.buscarPatologia = this.buscarSelectedPatologia.getPatologia();
+		//this.pacienteSelected.getPatologias().add(buscarSelectedPatologia);
+
+	}
+
+	// fin buscar patologia
+	
+	@Command
+	@NotifyChange({"pacienteSelected","buscarPatologia"})
+	public void agregarPatologia() {
+		
+		if (this.buscarSelectedPatologia == null) {
+			return;
+		}
+		
+		this.pacienteSelected.getPatologias().add(this.buscarSelectedPatologia);
+		this.buscarPatologia = "";
+		this.buscarSelectedPatologia = null;
+		
+	}
+	
 
 	public Paciente getPacienteSelected() {
 		return pacienteSelected;
@@ -411,6 +470,22 @@ public class PacienteVM extends TemplateViewModelLocal {
 
 	public void setBuscarCiudad(String buscarCiudad) {
 		this.buscarCiudad = buscarCiudad;
+	}
+
+	public List<Object[]> getlPatologiasBuscar() {
+		return lPatologiasBuscar;
+	}
+
+	public void setlPatologiasBuscar(List<Object[]> lPatologiasBuscar) {
+		this.lPatologiasBuscar = lPatologiasBuscar;
+	}
+
+	public String getBuscarPatologia() {
+		return buscarPatologia;
+	}
+
+	public void setBuscarPatologia(String buscarPatologia) {
+		this.buscarPatologia = buscarPatologia;
 	}
 
 }
