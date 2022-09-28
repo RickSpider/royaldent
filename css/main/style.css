@@ -39,26 +39,3 @@
 }
 
 
-
-
-
-
-
-
-
-.topbar {
-    padding: 18px 22px; 
-    
-}
-.vertical .topbar {
-    padding-left: 182px;
-    background-color: white;
-}
-.vertical .topbar.collapsed {
-    padding-left: 75px;
-}
-.horizontal .topbar {
-    padding-top: 50px;
-    background-color: white;
-}
-
